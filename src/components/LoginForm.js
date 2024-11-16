@@ -1,59 +1,49 @@
-import React from "react";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { TextField, Button } from "@mui/material";
-import { useNavigate, Link } from "react-router-dom"; // Import Link here
+import React, { useState } from "react";
+import { TextField, Button, Typography } from "@mui/material";
 
-const LoginForm = ({ handleLogin }) => {
-  const navigate = useNavigate();
+const LoginForm = ({ onLogin }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    validationSchema: Yup.object({
-      email: Yup.string().email("Invalid email").required("Email is required"),
-      password: Yup.string().required("Password is required"),
-    }),
-    onSubmit: (values, { setSubmitting }) => {
-      handleLogin(values);
-      navigate("/"); // Redirect to home after successful login
-      setSubmitting(false);
-    },
-  });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onLogin({ email, password });
+  };
 
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <TextField
-        fullWidth
-        id="email"
-        name="email"
-        label="Email"
-        type="email"
-        value={formik.values.email}
-        onChange={formik.handleChange}
-        error={formik.touched.email && Boolean(formik.errors.email)}
-        helperText={formik.touched.email && formik.errors.email}
-      />
-      <TextField
-        fullWidth
-        id="password"
-        name="password"
-        label="Password"
-        type="password"
-        value={formik.values.password}
-        onChange={formik.handleChange}
-        error={formik.touched.password && Boolean(formik.errors.password)}
-        helperText={formik.touched.password && formik.errors.password}
-      />
-      <Button color="primary" variant="contained" fullWidth type="submit">
-        Login
-      </Button>
-      <Button color="secondary" component={Link} to="/register">
-        Don't have an account? Register here
-      </Button>
-    </form>
+    <div style={{ padding: "20px" }}>
+      {" "}
+      <Typography variant="h4" component="h1" gutterBottom>
+        {" "}
+        Login{" "}
+      </Typography>{" "}
+      <form onSubmit={handleSubmit}>
+        {" "}
+        <TextField
+          label="Email"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />{" "}
+        <TextField
+          label="Password"
+          type="password"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />{" "}
+        <Button type="submit" variant="contained" color="primary" fullWidth>
+          {" "}
+          Login{" "}
+        </Button>{" "}
+      </form>{" "}
+    </div>
   );
 };
 

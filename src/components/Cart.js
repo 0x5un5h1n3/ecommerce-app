@@ -7,18 +7,23 @@ import {
   Typography,
 } from "@mui/material";
 
-const Cart = ({ cart, removeFromCart }) => {
-  const total = cart.reduce((acc, item) => acc + item.price, 0);
-
+const Cart = ({ cartItems, removeFromCart, updateCartItemQuantity }) => {
   return (
-    <div>
-      <Typography variant="h4">Your Cart</Typography>
+    <div style={{ padding: "20px" }}>
+      <Typography variant="h4" component="h1" gutterBottom>
+        Shopping Cart
+      </Typography>
       <List>
-        {cart.map((item) => (
+        {cartItems.map((item) => (
           <ListItem key={item.id}>
-            <ListItemText primary={item.name} secondary={`$${item.price}`} />
+            <ListItemText
+              primary={item.name}
+              secondary={`Price: $${item.price.toFixed(2)} | Quantity: ${
+                item.quantity
+              }`}
+            />
             <Button
-              variant="contained"
+              variant="outlined"
               color="secondary"
               onClick={() => removeFromCart(item)}
             >
@@ -27,7 +32,12 @@ const Cart = ({ cart, removeFromCart }) => {
           </ListItem>
         ))}
       </List>
-      <Typography variant="h6">Total: ${total.toFixed(2)}</Typography>
+      <Typography variant="h6">
+        Total: $
+        {cartItems
+          .reduce((total, item) => total + item.price * item.quantity, 0)
+          .toFixed(2)}
+      </Typography>
     </div>
   );
 };

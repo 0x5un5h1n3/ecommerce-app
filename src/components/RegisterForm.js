@@ -1,60 +1,81 @@
-import React from "react";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { TextField, Button } from "@mui/material";
-import { useNavigate, Link } from "react-router-dom"; // Import Link here
+import React, { useState } from "react";
+import { TextField, Button, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-const RegisterForm = ({ handleLogin }) => {
+const RegisterForm = ({ onRegister }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    validationSchema: Yup.object({
-      email: Yup.string().email("Invalid email").required("Email is required"),
-      password: Yup.string().required("Password is required"),
-    }),
-    onSubmit: (values, { setSubmitting }) => {
-      // Handle registration logic here
-      handleLogin(values); // Optionally log in the user after registration
-      navigate("/login"); // Redirect to login after registration
-      setSubmitting(false);
-    },
-  });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Validation
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters");
+      return;
+    }
+
+    // Clear any previous errors
+    setError("");
+
+    // Proceed with registration
+    onRegister({ email });
+    navigate("/");
+  };
 
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <TextField
-        fullWidth
-        id="email"
-        name="email"
-        label="Email"
-        type="email"
-        value={formik.values.email}
-        onChange={formik.handleChange}
-        error={formik.touched.email && Boolean(formik.errors.email)}
-        helperText={formik.touched.email && formik.errors.email}
-      />
-      <TextField
-        fullWidth
-        id="password"
-        name="password"
-        label="Password"
-        type="password"
-        value={formik.values.password}
-        onChange={formik.handleChange}
-        error={formik.touched.password && Boolean(formik.errors.password)}
-        helperText={formik.touched.password && formik.errors.password}
-      />
-      <Button color="primary" variant="contained" fullWidth type="submit">
+    <div style={{ padding: "20px" }}>
+      <Typography variant="h4" component="h1" gutterBottom>
         Register
-      </Button>
-      <Button color="secondary" component={Link} to="/login">
-        Already have an account? Login here
-      </Button>
-    </form>
+      </Typography>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          label="Email"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <TextField
+          label="Password"
+          type="password"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <TextField
+          label="Confirm Password"
+          type="password"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
+        />
+        {error && (
+          <Typography color="error" variant="body2">
+            {error}
+          </Typography>
+        )}
+        <Button type="submit" variant="contained" color="primary" fullWidth>
+          Register
+        </Button>
+      </form>
+    </div>
   );
 };
 
