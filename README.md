@@ -4,7 +4,7 @@
 
 ## Overview
 
-\*\*Simple E-commerce Webapp is a React application that provides a user-friendly e-commerce experience with user authentication and shopping cart functionality. The application is built using React, React Context, and Material UI, ensuring a responsive and modern design.
+**Simple E-commerce Webapp** is a React application that provides a user-friendly e-commerce experience with user authentication and shopping cart functionality. The application is built using React, React Context, and Material UI, ensuring a responsive and modern design.
 
 ### Key Features
 
