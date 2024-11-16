@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, Card, CardContent, Typography } from "@mui/material";
 
 const products = [
@@ -26,9 +26,29 @@ const products = [
 ];
 
 const ProductList = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState(products);
+
+  const handleSearch = (event) => {
+    const searchTerm = event.target.value;
+    setSearchTerm(searchTerm);
+    const filteredProducts = products.filter((product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredProducts(filteredProducts);
+  };
+
   return (
     <Grid container spacing={2}>
-      {products.map((product) => (
+      <Grid item xs={12}>
+        <input
+          type="search"
+          value={searchTerm}
+          onChange={handleSearch}
+          placeholder="Search products"
+        />
+      </Grid>
+      {filteredProducts.map((product) => (
         <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
           <Card>
             <CardContent>
