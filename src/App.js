@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import ProductList from "./components/ProductList";
 import Cart from "./components/Cart";
@@ -8,27 +8,42 @@ import LoginForm from "./components/LoginForm";
 
 const App = () => {
   const [user, setUser] = useState(null);
+  const [cart, setCart] = useState([]);
 
-  const handleLogin = (user) => {
-    setUser(user);
+  const handleLogin = (userData) => {
+    setUser(userData);
   };
 
   const handleLogout = () => {
     setUser(null);
   };
 
+  const addToCart = (product) => {
+    setCart([...cart, product]);
+  };
+
+  const removeFromCart = (product) => {
+    setCart(cart.filter((item) => item.id !== product.id));
+  };
+
   return (
     <BrowserRouter>
-      <Navbar user={user} handleLogout={handleLogout} />
-      <Switch>
-        <Route path="/" exact component={ProductList} />
-        <Route path="/cart" component={Cart} />
-        <Route path="/register" component={RegisterForm} />
+      <Navbar user={user} handleLogout={handleLogout} cart={cart} />
+      <Routes>
+        <Route path="/" element={<ProductList addToCart={addToCart} />} />
+        <Route
+          path="/cart"
+          element={<Cart cart={cart} removeFromCart={removeFromCart} />}
+        />
+        <Route
+          path="/register"
+          element={<RegisterForm handleLogin={handleLogin} />}
+        />
         <Route
           path="/login"
-          render={(props) => <LoginForm {...props} handleLogin={handleLogin} />}
+          element={<LoginForm handleLogin={handleLogin} />}
         />
-      </Switch>
+      </Routes>
     </BrowserRouter>
   );
 };

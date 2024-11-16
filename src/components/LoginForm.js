@@ -2,8 +2,11 @@ import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { TextField, Button } from "@mui/material";
+import { useNavigate, Link } from "react-router-dom"; // Import Link here
 
 const LoginForm = ({ handleLogin }) => {
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -15,6 +18,7 @@ const LoginForm = ({ handleLogin }) => {
     }),
     onSubmit: (values, { setSubmitting }) => {
       handleLogin(values);
+      navigate("/"); // Redirect to home after successful login
       setSubmitting(false);
     },
   });
@@ -22,15 +26,18 @@ const LoginForm = ({ handleLogin }) => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <TextField
+        fullWidth
         id="email"
         name="email"
         label="Email"
+        type="email"
         value={formik.values.email}
         onChange={formik.handleChange}
         error={formik.touched.email && Boolean(formik.errors.email)}
         helperText={formik.touched.email && formik.errors.email}
       />
       <TextField
+        fullWidth
         id="password"
         name="password"
         label="Password"
@@ -40,8 +47,11 @@ const LoginForm = ({ handleLogin }) => {
         error={formik.touched.password && Boolean(formik.errors.password)}
         helperText={formik.touched.password && formik.errors.password}
       />
-      <Button type="submit" variant="contained">
+      <Button color="primary" variant="contained" fullWidth type="submit">
         Login
+      </Button>
+      <Button color="secondary" component={Link} to="/register">
+        Don't have an account? Register here
       </Button>
     </form>
   );

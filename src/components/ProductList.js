@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Grid, Card, CardContent, Typography } from "@mui/material";
+import React from "react";
+import { Grid, Card, CardContent, Typography, Button } from "@mui/material";
 
 const products = [
   {
@@ -25,30 +25,10 @@ const products = [
   },
 ];
 
-const ProductList = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState(products);
-
-  const handleSearch = (event) => {
-    const searchTerm = event.target.value;
-    setSearchTerm(searchTerm);
-    const filteredProducts = products.filter((product) =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredProducts(filteredProducts);
-  };
-
+const ProductList = ({ addToCart }) => {
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12}>
-        <input
-          type="search"
-          value={searchTerm}
-          onChange={handleSearch}
-          placeholder="Search products"
-        />
-      </Grid>
-      {filteredProducts.map((product) => (
+      {products.map((product) => (
         <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
           <Card>
             <CardContent>
@@ -62,6 +42,7 @@ const ProductList = () => {
                 ${product.price}
               </Typography>
               <img src={product.image} alt={product.name} />
+              <Button onClick={() => addToCart(product)}>Add to Cart</Button>
             </CardContent>
           </Card>
         </Grid>
@@ -70,4 +51,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default ProductList; // Ensure this line is present

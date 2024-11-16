@@ -1,45 +1,34 @@
-import React, { useState } from "react";
-import { Grid, Card, CardContent, Typography } from "@mui/material";
+import React from "react";
+import {
+  List,
+  ListItem,
+  ListItemText,
+  Button,
+  Typography,
+} from "@mui/material";
 
-const Cart = () => {
-  const [cart, setCart] = useState([]);
-  const [total, setTotal] = useState(0);
-
-  const handleAddToCart = (product) => {
-    setCart([...cart, product]);
-    setTotal(total + product.price);
-  };
-
-  const handleRemoveFromCart = (product) => {
-    setCart(cart.filter((item) => item.id !== product.id));
-    setTotal(total - product.price);
-  };
+const Cart = ({ cart, removeFromCart }) => {
+  const total = cart.reduce((acc, item) => acc + item.price, 0);
 
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={12}>
-        <Card>
-          <CardContent>
-            <Typography variant="h5" component="h2">
-              Shopping Cart
-            </Typography>
-            <ul>
-              {cart.map((product) => (
-                <li key={product.id}>
-                  {product.name} x {1} = ${product.price}
-                  <button onClick={() => handleRemoveFromCart(product)}>
-                    Remove
-                  </button>
-                </li>
-              ))}
-            </ul>
-            <Typography variant="body2" color="textSecondary" component="p">
-              Total: ${total}
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-    </Grid>
+    <div>
+      <Typography variant="h4">Your Cart</Typography>
+      <List>
+        {cart.map((item) => (
+          <ListItem key={item.id}>
+            <ListItemText primary={item.name} secondary={`$${item.price}`} />
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => removeFromCart(item)}
+            >
+              Remove
+            </Button>
+          </ListItem>
+        ))}
+      </List>
+      <Typography variant="h6">Total: ${total.toFixed(2)}</Typography>
+    </div>
   );
 };
 
