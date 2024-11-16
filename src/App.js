@@ -14,13 +14,14 @@ import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import { Snackbar, Alert } from "@mui/material";
 
-// Sample product data with images
+// Sample product data with actual images
 const initialProducts = [
   {
     id: 1,
     name: "Laptop",
     price: 999.99,
-    image: "https://via.placeholder.com/150",
+    image:
+      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTc3M3wwfDF8c2VhcmNofDF8fGxhcHRvcHxlbnwwfHx8fDE2NzA2NTYzMDg&ixlib=rb-4.0.3&q=80&w=400",
     description: "High-performance laptop",
     category: "Electronics",
   },
@@ -28,7 +29,8 @@ const initialProducts = [
     id: 2,
     name: "Smartphone",
     price: 599.99,
-    image: "https://via.placeholder.com/150",
+    image:
+      "https://images.unsplash.com/photo-1511381982577-6c0f0b1f9b6d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTc3M3wwfDF8c2VhcmNofDE2fHxzbWFydHNob25lfGVufDB8fHx8MTY3MDY1NjMwOA&ixlib=rb-4.0.3&q=80&w=400",
     description: "Latest model smartphone",
     category: "Electronics",
   },
@@ -36,7 +38,8 @@ const initialProducts = [
     id: 3,
     name: "Headphones",
     price: 199.99,
-    image: "https://via.placeholder.com/150",
+    image:
+      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTc3M3wwfDF8c2VhcmNofDE2fHxoZWFkcGhvbmV8ZW58MHx8fHwxNjcwNjU2MzA4&ixlib=rb-4.0.3&q=80&w=400",
     description: "Noise-cancelling headphones",
     category: "Accessories",
   },
@@ -44,7 +47,8 @@ const initialProducts = [
     id: 4,
     name: "Smartwatch",
     price: 249.99,
-    image: "https://via.placeholder.com/150",
+    image:
+      "https://images.unsplash.com/photo-1517841905240-472988babdf9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTc3M3wwfDF8c2VhcmNofDE5fHxzbWFydHdhdGNofGVufDB8fHx8MTY3MDY1NjMwOA&ixlib=rb-4.0.3&q=80&w=400",
     description: "Advanced smartwatch",
     category: "Wearables",
   },
@@ -52,7 +56,8 @@ const initialProducts = [
     id: 5,
     name: "Tablet",
     price: 349.99,
-    image: "https://via.placeholder.com/150",
+    image:
+      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTc3M3wwfDF8c2VhcmNofDEwfHx0YWJsZXQlMjBpbWFnZXxlbnwwfHx8fDE2NzA2NTYzMDg&ixlib=rb-4.0.3&q=80&w=400",
     description: "Portable tablet",
     category: "Electronics",
   },
@@ -60,7 +65,8 @@ const initialProducts = [
     id: 6,
     name: "Wireless Earbuds",
     price: 129.99,
-    image: "https://via.placeholder.com/150",
+    image:
+      "https://images.unsplash.com/photo-1586940972064-0c1b2a2f3b5b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTc3M3wwfDF8c2VhcmNofDE fHdpcmVsb3VzJTIwZWFyYnVkc3xlbnwwfHx8fDE2NzA2NTYzMDg&ixlib=rb-4.0.3&q=80&w=400",
     description: "True wireless earbuds",
     category: "Accessories",
   },
