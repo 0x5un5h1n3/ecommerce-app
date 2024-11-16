@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { TextField, Button } from "@mui/material";
 
-const LoginForm = () => {
+const LoginForm = ({ handleLogin }) => {
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -14,7 +14,7 @@ const LoginForm = () => {
       password: Yup.string().required("Password is required"),
     }),
     onSubmit: (values, { setSubmitting }) => {
-      console.log(values);
+      handleLogin(values);
       setSubmitting(false);
     },
   });
